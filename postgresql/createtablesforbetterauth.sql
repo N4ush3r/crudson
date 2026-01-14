@@ -8,6 +8,10 @@ DROP TABLE IF EXISTS public.verifications CASCADE;
 DROP TABLE IF EXISTS public.roles CASCADE;
 DROP TABLE IF EXISTS public.users CASCADE;
 
+-- *** Note ****
+-- After Creating the Tables 
+--  Seed Roles First
+-- Seed Admin user (name=a@a.com, password=password123)
 -- =========================================
 -- CREATE TABLES
 -- =========================================

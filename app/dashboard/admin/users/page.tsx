@@ -11,7 +11,7 @@ import ChangeUserPasswordModal from "./ChangeUserPasswordModal";
 import AssignUserRolesModal from "./AssignUserRolesModal";
 import ActDeactUserModal from "./ActDeactUserModal";
 import PageGuardWrapper from "@/components/PageGuardWrapper";
-import ModalGuardWrapper from "@/components/ModalGuardWrapper";
+import ButtonGuardWrapper from "@/components/ButtonGuardWrapper";
 
 export default function Page() {
     const { data: session, isPending } = useSession();
@@ -158,41 +158,41 @@ export default function Page() {
           </button>
         </div>
 
-        <ModalGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_CANADDUSERS"]}>
+        <ButtonGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_CANADDUSERS"]}>
             <button
             onClick={() => setIsAddModalOpen(true)}
             className="rounded-md bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition-colors shadow-sm whitespace-nowrap"
             >
             + Add User
             </button>
-        </ModalGuardWrapper>
+        </ButtonGuardWrapper>
       </div>
 
-      <ModalGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_CANADDUSERS"]}>
+      <ButtonGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_CANADDUSERS"]}>
         <AddUserModal 
           isOpen={isAddModalOpen} 
           onClose={() => setIsAddModalOpen(false)} 
           onAdd={handleAddUser} 
         />
-      </ModalGuardWrapper>
+      </ButtonGuardWrapper>
 
-      <ModalGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_CANEDITUSERS"]}>
+      <ButtonGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_CANEDITUSERS"]}>
         <EditUserModal
           isOpen={!!userToEdit}
           onClose={() => setUserToEdit(null)}
           onEdit={handleEditUser}
           user={userToEdit}
         />
-      </ModalGuardWrapper>
+      </ButtonGuardWrapper>
 
-      <ModalGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_ACTIVATEUSERS"]}>
+      <ButtonGuardWrapper requiredRoles={["ADMINISTRATOR", "USERS_ACTIVATEUSERS"]}>
         <ActDeactUserModal
           isOpen={!!userToToggle}
           onClose={() => setUserToToggle(null)}
           onToggle={handleToggleUser}
           user={userToToggle}
         />
-      </ModalGuardWrapper>
+      </ButtonGuardWrapper>
 
       <ChangeUserPasswordModal
         isOpen={!!userToChangePassword}
@@ -271,7 +271,7 @@ export default function Page() {
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-500">{user.gender || "-"}</td>
                   <td className="px-4 py-2 text-sm">
-                    <ModalGuardWrapper requiredRoles={['ADMINISTRATOR', 'USERS_CANACTIVATEUSERS']}>
+                    <ButtonGuardWrapper requiredRoles={['ADMINISTRATOR', 'USERS_CANACTIVATEUSERS']}>
                         <button 
                             onClick={() => setUserToToggle(user)}
                             className={`px-3 py-1 rounded-md border font-semibold transition-colors ${
@@ -282,19 +282,19 @@ export default function Page() {
                         >
                             {user.active ? "Deactivate" : "Activate"}
                         </button>
-                    </ModalGuardWrapper>
+                    </ButtonGuardWrapper>
                   </td>
                   <td className="sticky right-0 z-10 bg-white px-6 py-2 text-sm space-x-2 whitespace-nowrap shadow-[-2px_0_5px_-2px_rgba(0,0,0,0.1)]">
-                     <ModalGuardWrapper requiredRoles={['ADMINISTRATOR', 'USERS_CANEDITUSERS']}>
+                     <ButtonGuardWrapper requiredRoles={['ADMINISTRATOR', 'USERS_CANEDITUSERS']}>
                         <button 
                             onClick={() => setUserToEdit(user)}
                             className="px-3 py-1 rounded-md border border-amber-500 text-amber-600 hover:bg-amber-50 font-semibold transition-colors"
                         >
                             Edit
                         </button>
-                    </ModalGuardWrapper>
+                    </ButtonGuardWrapper>
 
-                    <ModalGuardWrapper requiredRoles={['ADMINISTRATOR', 'USERS_CANEDITUSERS']}>
+                    <ButtonGuardWrapper requiredRoles={['ADMINISTRATOR', 'USERS_CANEDITUSERS']}>
                         <button 
                             onClick={() => setUserToChangePassword(user)}
                             className="px-3 py-1 rounded-md border border-purple-600 text-purple-600 hover:bg-purple-50 font-semibold transition-colors"
@@ -302,9 +302,9 @@ export default function Page() {
                         >
                             Password
                         </button>
-                    </ModalGuardWrapper>
+                    </ButtonGuardWrapper>
 
-                    <ModalGuardWrapper requiredRoles={['ADMINISTRATOR','USERS_CANASSIGNUSERSROLES']}>
+                    <ButtonGuardWrapper requiredRoles={['ADMINISTRATOR','USERS_CANASSIGNUSERSROLES']}>
                         <button 
                             onClick={() => setUserToAssignRoles(user)}
                             className="px-3 py-1 rounded-md border border-teal-600 text-teal-600 hover:bg-teal-50 font-semibold transition-colors"
@@ -312,7 +312,7 @@ export default function Page() {
                         >
                             Roles
                         </button>
-                    </ModalGuardWrapper>
+                    </ButtonGuardWrapper>
                   </td>
                 </tr>
               ))}

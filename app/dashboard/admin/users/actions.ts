@@ -189,7 +189,8 @@ export async function changeUserPassword(userId: string, newPassword: string): P
         body: {
             email: dummyEmail,
             password: newPassword,
-            name: "Temp"
+            name: "Temp",
+            active: false
         }
     });
 

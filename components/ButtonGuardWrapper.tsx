@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth-client";
 import { getUserRoles } from "./actions";
 
-interface ModalGuardWrapperProps {
+interface ButtonGuardWrapperProps {
   children: React.ReactNode;
   requiredRoles?: string[];
 }
 
-export default function ModalGuardWrapper({ children, requiredRoles = [] }: ModalGuardWrapperProps) {
+export default function ButtonGuardWrapper({ children, requiredRoles = [] }: ButtonGuardWrapperProps) {
   const { data: session, isPending } = useSession();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [checking, setChecking] = useState(true);
@@ -40,7 +40,7 @@ export default function ModalGuardWrapper({ children, requiredRoles = [] }: Moda
           setIsAuthorized(true);
         }
       } catch (error) {
-        console.error("Failed to check authorization for modal:", error);
+        console.error("Failed to check authorization for button wrapper:", error);
       } finally {
         setChecking(false);
       }

@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "@/lib/auth-client";
+import { signIn, getSession, signOut } from "@/lib/auth-client";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { showMessage } from "@/components/MessageModal";
@@ -46,7 +46,16 @@ export default function LoginPage() {
           password: cleanPassword 
       }, {
            onSuccess: async () => {
-              // await showMessage("Login successful! Redirecting...");
+               const res = await getSession();
+               const session = "data" in res ? res.data : res;
+               if (session?.user?.active === false) {
+                   await showMessage("Your account is inactive. Please contact the administrator.", {
+                       okColor: "bg-red-600 hover:bg-red-700"
+                   });
+                   await signOut();
+                   setLoading(false);
+                   return;
+               }
                router.push("/dashboard");
            },
           onError: async () => {

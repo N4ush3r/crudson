@@ -76,6 +76,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   }, [session, isPending]);
 
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      const enforce = async () => {
+        if (session.user.active === false) {
+          await showMessage("Your account is inactive. Please contact the administrator.");
+          await signOut();
+          router.push("/");
+        }
+      };
+      enforce();
+    }
+  }, [session, isPending, router]);
+
   const toggleMenu = (name: string) => setOpenMenu(openMenu === name ? null : name);
   
   const openEditProfile = async () => {

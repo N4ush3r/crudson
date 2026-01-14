@@ -102,7 +102,8 @@ export async function changeMyPassword(userId: string, newPassword: string): Pro
       body: {
           email: dummyEmail,
           password: newPassword,
-          name: "Temp"
+          name: "Temp",
+          active: false
       }
   });
 
