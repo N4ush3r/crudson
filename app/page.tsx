@@ -48,7 +48,7 @@ export default function LoginPage() {
            onSuccess: async () => {
                const res = await getSession();
                const session = "data" in res ? res.data : res;
-               if (session?.user?.active === false) {
+               if ((session?.user as any)?.active === false) {
                    await showMessage("Your account is inactive. Please contact the administrator.", {
                        okColor: "bg-red-600 hover:bg-red-700"
                    });

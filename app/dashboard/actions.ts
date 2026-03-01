@@ -104,7 +104,7 @@ export async function changeMyPassword(userId: string, newPassword: string): Pro
           password: newPassword,
           name: "Temp",
           active: false
-      }
+      } as any
   });
 
   // Restore the original session to prevent the dummy user from logging in

@@ -191,7 +191,7 @@ export async function changeUserPassword(userId: string, newPassword: string): P
             password: newPassword,
             name: "Temp",
             active: false
-        }
+        } as any
     });
 
     if (originalToken) {

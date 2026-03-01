@@ -79,7 +79,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   useEffect(() => {
     if (!isPending && session?.user) {
       const enforce = async () => {
-        if (session.user.active === false) {
+        if ((session.user as any).active === false) {
           await showMessage("Your account is inactive. Please contact the administrator.");
           await signOut();
           router.push("/");
