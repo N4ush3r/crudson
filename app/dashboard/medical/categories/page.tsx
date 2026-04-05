@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getCategories, createCategory, updateCategory, deleteCategory, TestCategory } from "../actions";
+import { getCategories, createCategory, updateCategory, deleteCategory, TestCategory } from "../../actions";
 import { Plus, Edit, Trash2, Search, Loader2 } from "lucide-react";
 
 export default function CategoriesPage() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getUoms, createUom, updateUom, deleteUom, Uom } from "../actions";
+import { getUoms, createUom, updateUom, deleteUom, Uom } from "./actions";
 import { Plus, Edit, Trash2, Search, Loader2 } from "lucide-react";
 
 export default function UomPage() {

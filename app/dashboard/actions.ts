@@ -35,6 +35,60 @@ export async function deleteUom(id: string) {
   revalidatePath("/dashboard/medical/tests");
 }
 
+export interface UserProfile {
+  id: string;
+  email: string;
+  name: string;
+  fullname: string | null;
+  birthdate: Date | null;
+  gender: string | null;
+  image: string | null;
+  active: boolean;
+}
+
+export async function getMyProfile(id?: string): Promise<UserProfile | null> {
+  if (!id) return null;
+  const { rows } = await query<Partial<UserProfile>>(
+    "SELECT id, email, name, fullname, birthdate, gender, image, active FROM users WHERE id = $1",
+    [id]
+  );
+  const user = rows[0];
+  if (!user) return null;
+
+  return {
+    id: user.id!,
+    email: user.email!,
+    name: user.name!,
+    fullname: user.fullname ?? null,
+    birthdate: user.birthdate ? new Date(user.birthdate as unknown as string) : null,
+    gender: user.gender ?? null,
+    image: user.image ?? null,
+    active: user.active ?? false,
+  };
+}
+
+export async function updateMyProfile(data: {
+  id: string;
+  email: string;
+  name: string;
+  fullname: string | null;
+  birthdate: string | null;
+  gender: string | null;
+}) {
+  await query(
+    "UPDATE users SET email = $1, name = $2, fullname = $3, birthdate = $4, gender = $5, \"updatedAt\" = NOW() WHERE id = $6",
+    [data.email, data.name, data.fullname || null, data.birthdate || null, data.gender || null, data.id]
+  );
+  revalidatePath("/dashboard");
+}
+
+export async function changeMyPassword(id: string, newPassword: string) {
+  await query(
+    "UPDATE users SET password = $1, \"updatedAt\" = NOW() WHERE id = $2",
+    [newPassword, id]
+  );
+}
+
 // =========================================
 // Test Categories Actions
 // =========================================
