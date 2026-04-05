@@ -93,4 +93,23 @@ export async function getMedicalTests(): Promise<MedicalTest[]> {
   return rows;
 }
 
-// Additional MedicalTest Actions (Create/Update/Delete) can be added similarly here.
+export async function createMedicalTest(data: Omit<MedicalTest, "id" | "uom_name" | "category_name">) {
+  await query(
+    "INSERT INTO medicaltests (name, description, iduom, idcategory, normalmin, normalmax) VALUES ($1, $2, $3, $4, $5, $6)",
+    [data.name, data.description || null, data.iduom || null, data.idcategory || null, data.normalmin, data.normalmax]
+  );
+  revalidatePath("/dashboard/medical/tests");
+}
+
+export async function updateMedicalTest(data: Omit<MedicalTest, "uom_name" | "category_name">) {
+  await query(
+    "UPDATE medicaltests SET name = $1, description = $2, iduom = $3, idcategory = $4, normalmin = $5, normalmax = $6 WHERE id = $7",
+    [data.name, data.description || null, data.iduom || null, data.idcategory || null, data.normalmin, data.normalmax, data.id]
+  );
+  revalidatePath("/dashboard/medical/tests");
+}
+
+export async function deleteMedicalTest(id: string) {
+  await query("DELETE FROM medicaltests WHERE id = $1", [id]);
+  revalidatePath("/dashboard/medical/tests");
+}
